@@ -1,16 +1,22 @@
-# Dockerfile para MariaDB personalizado basado en Debian stable penultima version
-FROM debian:stable-slim
+FROM debian:bullseye
 
-# ENV MARIADB_VERSION=10.11 // no especificar de momento
+# Evitar preguntas de zona horaria o similares
+#ENV DEBIAN_FRONTEND=noninteractive
 
-# Actualizar paquetes
-RUN apt-get update && apt-get install -y \
-    mariadb-server=$MARIADB_VERSION* \
-    mariadb-client=$MARIADB_VERSION* \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+# Instalar MariaDB
+RUN apt-get update -y && \
+    apt-get install -y mariadb-server && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Copiar script de inicialización
+COPY ./init_db.sh /init_db.sh
+RUN chmod +x /init_db.sh
+
+# Volumen para persistencia de datos
 VOLUME /var/lib/mysql
 
+# Exponer puerto
 EXPOSE 3306
 
-CMD ["mysqld_safe"]
+# Comando de arranque
+CMD ["/init_db.sh"]
