@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Inicializa sin arrancar demonio completo
-mysqld --initialize-insecure --user=mysql
+# Inicializa daemon mysql
+mysqld --initialize --user=mysql
 
 # Arranca MySQL en segundo plano y espera a que esté listo
 mysqld_safe --datadir="/var/lib/mysql" &
