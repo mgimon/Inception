@@ -34,4 +34,5 @@ if ! wp core is-installed --allow-root; then
     --allow-root
 fi
 
-exec "$@"
+# execute main process in foreground
+exec php-fpm7.3 -F

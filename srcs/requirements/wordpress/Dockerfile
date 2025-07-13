@@ -11,6 +11,8 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
     && chmod +x wp-cli.phar \
     && mv wp-cli.phar /usr/local/bin/wp
 
+EXPOSE 9000
+
 COPY ./init_worpress.sh /init_wordpress.sh
 RUN chmod +x /init_wordpress.sh
 

@@ -20,7 +20,7 @@ services:
     volumes:
       - wordpress:/var/www/html
     ports:
-      - "443:443"
+      - "443:443" # "host(VM):container"
     networks:
       - inception_net
   wordpress:
@@ -31,6 +31,8 @@ services:
       - wordpress:/var/www/html
     networks:
       - inception_net
+    expose:
+      - "9000"
 volumes:
   mariadb_db:
   wordpress:
