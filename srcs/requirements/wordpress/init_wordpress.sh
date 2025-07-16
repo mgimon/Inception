@@ -3,15 +3,20 @@
 # Protection
 set -e
 
+# Wait for mariadb. ping --silent returns 0 (true) when ready
+until mysqladmin ping -h"$DB_HOST" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" --silent; do
+  sleep 2
+done
+
 # Entering shared volume that NGINX can see
 cd /var/www/html
 
-# WP core
+# wp-cli.phar core download
 if [ ! -f wp-load.php ]; then
   wp core download --allow-root
 fi
 
-# wp-config.php
+# wp-cli.phar config create
 if [ ! -f wp-config.php ]; then
   wp config create \
     --dbname="$MYSQL_DATABASE" \
@@ -22,7 +27,7 @@ if [ ! -f wp-config.php ]; then
     --allow-root
 fi
 
-# install WP
+# wp-cli.phar core install
 if ! wp core is-installed --allow-root; then
   wp core install \
     --url="$WP_URL" \
@@ -34,5 +39,5 @@ if ! wp core is-installed --allow-root; then
     --allow-root
 fi
 
-# execute main process in foreground
-exec php-fpm7.3 -F
+# execute php-fpm (main process)
+exec php-fpm7.4 -F
