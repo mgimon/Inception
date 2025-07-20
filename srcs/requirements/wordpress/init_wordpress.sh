@@ -39,5 +39,8 @@ if ! wp core is-installed --allow-root; then
     --allow-root
 fi
 
+# set php-fpm to listen to 9000 (nginx php requests)
+sed -i 's|^listen = .*|listen = 9000|' /etc/php/7.4/fpm/pool.d/www.conf
+
 # execute php-fpm (main process)
 exec php-fpm7.4 -F
