@@ -20,4 +20,4 @@ mysql < tmp.sql
 mysqladmin shutdown -uroot -p"${MYSQL_ROOT_PASSWORD}"
 
 # Arranca el daemon de forma normal
-exec mysqld
+exec mysqld --bind-address=0.0.0.0

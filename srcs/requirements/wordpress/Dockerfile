@@ -1,5 +1,7 @@
 FROM debian:bullseye
 
+RUN mkdir -p /run/php
+
 RUN apt-get update && apt-get -y install \
  curl \
  php7.4-fpm \
