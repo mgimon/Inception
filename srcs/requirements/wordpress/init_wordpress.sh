@@ -8,7 +8,6 @@ until mysqladmin ping -h"$DB_HOST" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" --silent;
   sleep 2
 done
 
-# Entering shared volume that NGINX can see
 cd /var/www/html
 
 # wp-cli.phar core download
@@ -41,6 +40,9 @@ fi
 
 # set php-fpm to listen to 9000 (nginx php requests)
 sed -i 's|^listen = .*|listen = 9000|' /etc/php/7.4/fpm/pool.d/www.conf
+
+# permisos a usuario de php-fpm sobre www/html
+chown -R www-data:www-data /var/www/html
 
 # execute php-fpm (main process)
 exec php-fpm7.4 -F
