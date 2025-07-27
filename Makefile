@@ -12,6 +12,8 @@ clean: down
 	@docker rmi $$(docker images -q) || true
 
 fclean: clean
+	@sudo rm -rf /home/mgimon-c/data/mariadb/*
+	@sudo rm -rf /home/mgimon-c/data/wordpress/*
 	@docker volume rm srcs_mariadb_vol
 	@docker volume rm srcs_wordpressfiles_vol
 	@docker stop $(docker ps -qa)
