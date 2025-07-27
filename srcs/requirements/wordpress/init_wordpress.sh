@@ -3,19 +3,21 @@
 # Protection
 set -e
 
-# Wait for mariadb. ping --silent returns 0 (true) when ready
+# mariadb. ping --silent returns 0 (true) when ready
 until mysqladmin ping -h"$DB_HOST" -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" --silent; do
   sleep 2
 done
 
 cd /var/www/html
 
-# wp-cli.phar core download
+##### wp-cli.phar = wp #####
+
+# wp core download
 if [ ! -f wp-load.php ]; then
   wp core download --allow-root
 fi
 
-# wp-cli.phar config create
+# wp-config.php
 if [ ! -f wp-config.php ]; then
   wp config create \
     --dbname="$MYSQL_DATABASE" \
@@ -26,7 +28,7 @@ if [ ! -f wp-config.php ]; then
     --allow-root
 fi
 
-# wp-cli.phar core install
+# wp core
 if ! wp core is-installed --allow-root; then
   wp core install \
     --url="$WP_URL" \
@@ -38,7 +40,7 @@ if ! wp core is-installed --allow-root; then
     --allow-root
 fi
 
-# set php-fpm to listen to 9000 (nginx php requests)
+# php-fpm listens to 9000 (nginx php requests)
 sed -i 's|^listen = .*|listen = 9000|' /etc/php/7.4/fpm/pool.d/www.conf
 
 # permisos a usuario de php-fpm sobre www/html

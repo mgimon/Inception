@@ -9,9 +9,12 @@ down:
 	docker-compose -f srcs/docker-compose.yml down
 
 clean: down
-	@docker system prune -af
+	@docker rmi $$(docker images -q) || true
 
 fclean: clean
-	@docker rmi $$(docker images -q) || true
+	@docker volume rm srcs_mariadb_vol
+	@docker volume rm srcs_wordpressfiles_vol
+	@docker stop $(docker ps -qa)
+	@docker rm $(docker ps -qa)
 
 re: fclean all

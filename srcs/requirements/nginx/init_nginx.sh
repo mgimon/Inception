@@ -11,8 +11,5 @@ if [ ! -f /etc/ssl/certs/nginx.crt ]; then
         -subj "/CN=mgimon-c.42.fr"
 fi
 
-# echo "configuracion de nginx en container:"
-# cat /etc/nginx/conf.d/default.conf
-
 # daemon off keeps nginx in foreground
 exec nginx -g 'daemon off;'

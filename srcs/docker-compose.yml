@@ -4,11 +4,12 @@ services:
   mariadb:
     build: ./requirements/mariadb
     container_name: mariadb
+    image: mariadb
     restart: always
     env_file:
       - .env
     volumes:
-      - mariadb_db:/var/lib/mysql
+      - mariadb_vol:/var/lib/mysql
     networks:
       - inception_net
     expose:
@@ -16,9 +17,10 @@ services:
   nginx:
     build: ./requirements/nginx
     container_name: nginx
+    image: nginx
     restart: always
     volumes:
-      - wordpress:/var/www/html
+      - wordpressfiles_vol:/var/www/html
     ports:
       - "443:443" # "host(VM):container"
     networks:
@@ -26,18 +28,31 @@ services:
   wordpress:
     build: ./requirements/wordpress
     container_name: wordpress
+    image: wordpress
     restart: always
     env_file:
       - .env
     volumes:
-      - wordpress:/var/www/html
+      - wordpressfiles_vol:/var/www/html
     networks:
       - inception_net
     expose:
       - "9000"
+
 volumes:
-  mariadb_db:
-  wordpress:
+  mariadb_vol:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/mgimon-c/data/mariadb
+      o: bind
+
+  wordpressfiles_vol:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/mgimon-c/data/wordpress
+      o: bind
 
 networks:
   inception_net:
