@@ -40,10 +40,10 @@ if ! wp core is-installed --allow-root; then
     --allow-root
 fi
 
-#wp user create "$WP_USER" "$WP_USER_EMAIL" \
-#  --role=subscriber \
-#  --user_pass="$WP_USER_PASSWORD" \
-#  --allow-root || true
+wp user create "$WP_USER" "$WP_USER_EMAIL" \
+  --role=subscriber \
+  --user_pass="$WP_USER_PASSWORD" \
+  --allow-root || true
 
 # php-fpm listens to 9000 (nginx php requests)
 sed -i 's|^listen = .*|listen = 9000|' /etc/php/7.4/fpm/pool.d/www.conf
