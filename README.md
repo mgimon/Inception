@@ -49,6 +49,6 @@ This command will initialize your Docker environment, build all necessary contai
 
 ### 🔄 You may also like...
 
-[-> My profile on the 42 Intranet](https://profile.intra.42.fr/users/tu-usuario)
+[-> My profile on the 42 Intranet](https://profile.intra.42.fr/users/mgimon-c)
 
-[-> My LinkedIn profile](https://www.linkedin.com/in/tu-usuario/)
+[-> My LinkedIn profile](https://www.linkedin.com/in/mgimon-c/)
