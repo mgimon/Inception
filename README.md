@@ -16,7 +16,7 @@ Start the entire stack using:
 make
 ```
 
-This command will initialize your Docker environment, build all necessary containers, and prepare the infrastructure for execution.
+This command will set up the Docker environment, build all necessary containers, and initialize the infrastructure.
 
 
 <br>
