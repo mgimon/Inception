@@ -8,27 +8,16 @@ The final setup must be production-ready, modular, and resilient, running inside
 
 <br>
 
-## 🟠 Compilation:
-
-Execute:
-```
-make
-```
-This command will initialize your Docker environment, build all necessary containers, and prepare the infrastructure for execution.
-
-<br>
 
 ## 🟠 Execution:
 
 Start the entire stack using:
 ```
-docker-compose up --build
+make
 ```
 
-Or run it in detached mode:
-```
-docker-compose up -d
-```
+This command will initialize your Docker environment, build all necessary containers, and prepare the infrastructure for execution.
+
 
 <br>
 
